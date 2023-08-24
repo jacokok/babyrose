@@ -107,3 +107,37 @@ export const voteData: Readable<VoteData | null> = derived(user, ($user, set) =>
 // 		set(null);
 // 	}
 // });
+
+interface VoteStore {
+	isClosed: boolean;
+	voted: boolean;
+}
+
+const voteStore = () => {
+	const { update, subscribe } = writable<VoteStore>({
+		isClosed: true,
+		voted: false
+	});
+
+	const setVoteClosed = (isClosed: boolean) => {
+		update((store) => ({
+			...store,
+			isClosed
+		}));
+	};
+
+	const setVoted = (voted: boolean) => {
+		update((store) => ({
+			...store,
+			voted
+		}));
+	};
+
+	return {
+		subscribe,
+		setVoteClosed,
+		setVoted
+	};
+};
+
+export const vote = voteStore();

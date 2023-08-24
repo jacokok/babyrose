@@ -9,7 +9,10 @@
 	>
 </h1>
 <div class="flex justify-center m-8">
-	<BabyIcon class="text-muted" size={80} />
+	<figure>
+		<section class="img-bg" />
+		<BabyIcon class="monkey" size={80} />
+	</figure>
 </div>
 <div class="text-center">
 	<h2 class="inline">
@@ -37,3 +40,27 @@
 		>
 	</h1>
 </div>
+
+<style lang="postcss">
+	figure {
+		@apply text-purple-400;
+		animation: pulse 10s cubic-bezier(0, 0, 0, 0.5) infinite, glow 5s linear infinite;
+	}
+
+	@keyframes glow {
+		0% {
+			@apply text-pink-400;
+		}
+		50% {
+			@apply text-blue-400;
+		}
+		100% {
+			@apply text-pink-400;
+		}
+	}
+	@keyframes pulse {
+		50% {
+			transform: scale(1.1);
+		}
+	}
+</style>

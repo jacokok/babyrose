@@ -9,40 +9,15 @@
 	import Timer from "$lib/components/timer/timer.svelte";
 	import Chart from "$lib/components/chart/chart.svelte";
 	import BarChart from "$lib/components/barChart/BarChart.svelte";
+	import { Home, PublicHome } from "./components";
 </script>
 
 <Header />
 
-{#if $user}
-	You are logged in {$user.displayName}
-{/if}
-
-<div>What {$configData?.voteCloseDate}</div>
-
 <div class="flex flex-col w-screen items-center mt-8 mb-4 space-y-6">
-	<Card.Root class="max-w-md flex flex-col h-fit w-full">
-		<Card.Header>
-			<Card.Title>
-				<div class="m-8">
-					<Title />
-				</div>
-			</Card.Title>
-			{#if $user}
-				<Card.Description>Choose one option</Card.Description>
-			{:else}
-				<Card.Description>Sign in to vote!</Card.Description>
-			{/if}
-			<Card.Content>
-				<Vote />
-			</Card.Content>
-		</Card.Header>
-		{#if $user == null}
-			<Card.Footer class="flex justify-between">
-				<Button on:click={signInWithGoogle}><Google class="mr-2 h-4 w-4" /> Sign In</Button>
-			</Card.Footer>
-		{/if}
-	</Card.Root>
-	<Timer />
-	<Chart />
-	<BarChart />
+	{#if $user}
+		<Home />
+	{:else}
+		<PublicHome />
+	{/if}
 </div>
