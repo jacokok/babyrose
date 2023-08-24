@@ -34,7 +34,7 @@
 </script>
 
 {#if !isDone}
-	<Card.Root class="max-w-md flex flex-col h-fit w-full m-6">
+	<Card.Root class="max-w-md flex flex-col h-fit w-full">
 		<Card.Header>
 			<Card.Title>Don't miss out</Card.Title>
 			<Card.Description>Voting closes in</Card.Description>

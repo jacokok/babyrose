@@ -8,6 +8,7 @@
 	import Vote from "$lib/components/vote/vote.svelte";
 	import Timer from "$lib/components/timer/timer.svelte";
 	import Chart from "$lib/components/chart/chart.svelte";
+	import BarChart from "$lib/components/barChart/BarChart.svelte";
 </script>
 
 <Header />
@@ -18,7 +19,7 @@
 
 <div>What {$configData?.voteCloseDate}</div>
 
-<div class="flex flex-col w-screen items-center mt-8 mb-4">
+<div class="flex flex-col w-screen items-center mt-8 mb-4 space-y-6">
 	<Card.Root class="max-w-md flex flex-col h-fit w-full">
 		<Card.Header>
 			<Card.Title>
@@ -43,4 +44,5 @@
 	</Card.Root>
 	<Timer />
 	<Chart />
+	<BarChart />
 </div>
