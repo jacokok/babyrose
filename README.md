@@ -1,6 +1,6 @@
 # Baby Rose
 
-Predict baby gender
+Predict baby gender. Is it a boy or a girl?
 
 ## Developing
 
