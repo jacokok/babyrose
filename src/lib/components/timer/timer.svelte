@@ -9,6 +9,8 @@
 	$: voteOpenSeconds = Math.floor((voteCloseDate.getTime() - now.getTime()) / 1000);
 
 	const getTimerValues = (seconds: number) => {
+		if ($vote.isClosed !== false) vote.setVoteClosed(false);
+
 		let minutes = Math.floor(seconds / 60);
 		let hours = Math.floor(minutes / 60);
 		let days = Math.floor(hours / 24);
@@ -19,15 +21,16 @@
 		return { days, hours, minutes, seconds };
 	};
 
-	const interval = setInterval(() => {
-		if (voteOpenSeconds > 0) {
-			voteOpenSeconds--;
-			if ($vote.isClosed !== false) vote.setVoteClosed(false);
-		} else {
-			vote.setVoteClosed(true);
-			clearInterval(interval);
-		}
-	}, 1000);
+	if (voteOpenSeconds > 0) {
+		const interval = setInterval(() => {
+			if (voteOpenSeconds > 0) {
+				voteOpenSeconds--;
+			} else {
+				vote.setVoteClosed(true);
+				clearInterval(interval);
+			}
+		}, 1000);
+	}
 
 	$: timer = getTimerValues(voteOpenSeconds);
 </script>
@@ -38,7 +41,7 @@
 			<Card.Title>Don't miss out</Card.Title>
 			<Card.Description>Voting closes in</Card.Description>
 			<Card.Content>
-				<div class="flex justify-around pt-2">
+				<div class="flex justify-around pt-2 gap-2">
 					<Tick type="Days">{timer.days}</Tick>
 					<Tick type="Hours">{timer.hours}</Tick>
 					<Tick type="Minutes">{timer.minutes}</Tick>
