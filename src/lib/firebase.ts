@@ -10,8 +10,6 @@ import {
 import {
 	getFirestore,
 	doc,
-	getDoc,
-	writeBatch,
 	onSnapshot,
 	Timestamp,
 	Query,
@@ -107,11 +105,6 @@ export interface VoteData {
 
 export const voteData: Readable<VoteData | null> = derived(user, ($user, set) => {
 	return docStore<VoteData>(`votes/${$user?.uid}`).subscribe(set);
-	// if ($user) {
-	// 	return docStore<VoteData>(`votes/${$user.uid}`).subscribe(set);
-	// } else {
-	// 	set(null);
-	// }
 });
 
 const voteDataListStore = () => {
@@ -130,9 +123,6 @@ export const voteStore = () => {
 	});
 
 	const setVoteClosed = (isClosed: boolean) => {
-		// update((store) => ({
-		// 	isClosed: isClosed
-		// }));
 		set({ isClosed });
 	};
 
