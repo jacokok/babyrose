@@ -1,5 +1,5 @@
 {
-	"cSpell.words": ["Firestore", "lucide"],
+	"cSpell.words": ["babyrose", "Firestore", "lucide"],
 	"yaml.schemas": {
 		"https://json.schemastore.org/github-workflow.json": "file:///home/doink/projects/babyrose/.github/workflows%20%20/deploy.yml"
 	}
