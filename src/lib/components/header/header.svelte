@@ -1,6 +1,6 @@
 <script>
 	import LightSwitch from "../ui/light-switch/light-switch.svelte";
-	import { BabyIcon, LogOut } from "lucide-svelte";
+	import { LogOut } from "lucide-svelte";
 	import * as Avatar from "$lib/components/ui/avatar";
 	import { user, signOut } from "$lib/firebase";
 	import { getInitials } from "$lib/utils";
@@ -11,14 +11,9 @@
 <header class="sticky top-0 z-40 w-full border-b bg-background/95 shadow-sm backdrop-blur">
 	<div class="container flex h-14 items-center">
 		<div class="mr-4 hidden md:flex">
-			<div
-				class="flex flex-1 items-center justify-between space-x-2 sm:space-x-4 md:justify-end mr-4"
-			>
-				<BabyIcon class="text-foreground " />
-			</div>
 			<h2>
 				<span
-					class="bg-gradient-to-br from-blue-500 to-pink-500 bg-clip-text text-transparent box-decoration-clone"
+					class="bg-gradient-to-br from-blue-700 to-pink-600 bg-clip-text text-transparent box-decoration-clone"
 					>Baby Rose</span
 				>
 			</h2>

@@ -14,7 +14,7 @@
 
 <Header />
 
-<div class="flex flex-col w-screen items-center mt-8 mb-4 space-y-6">
+<div class="m-8 grid grid-cols-1 gap-6 items-center justify-items-center">
 	{#if $user}
 		<Home />
 	{:else}

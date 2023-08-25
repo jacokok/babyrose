@@ -7,7 +7,18 @@ import {
 	signOut as fbSignOut,
 	type User
 } from "firebase/auth";
-import { getFirestore, doc, getDoc, writeBatch, onSnapshot, Timestamp } from "firebase/firestore";
+import {
+	getFirestore,
+	doc,
+	getDoc,
+	writeBatch,
+	onSnapshot,
+	Timestamp,
+	Query,
+	Firestore,
+	collection
+} from "firebase/firestore";
+import type { CollectionReference } from "firebase/firestore";
 import { writable, type Readable, derived } from "svelte/store";
 
 const firebaseConfig = {
@@ -84,60 +95,86 @@ interface ConfigData {
 	voteCloseDate: Timestamp;
 }
 
-export const configData: Readable<ConfigData | null> = derived(user, ($user, set) => {
-	return docStore<ConfigData>(`config/voteCloseDate`).subscribe(set);
-});
+const configDataStore = () => {
+	return docStore<ConfigData>(`config/voteCloseDate`);
+};
 
-interface VoteData {
+export const configData = configDataStore();
+
+export interface VoteData {
 	gender: string;
 }
 
 export const voteData: Readable<VoteData | null> = derived(user, ($user, set) => {
-	if ($user) {
-		return docStore<VoteData>(`votes/test`).subscribe(set);
-	} else {
-		set(null);
-	}
+	return docStore<VoteData>(`votes/${$user?.uid}`).subscribe(set);
+	// if ($user) {
+	// 	return docStore<VoteData>(`votes/${$user.uid}`).subscribe(set);
+	// } else {
+	// 	set(null);
+	// }
 });
 
-// export const userData: Readable<Config | null> = derived(user, ($user, set) => {
-// 	if ($user) {
-// 		return docStore<Config>(`config/${$user.uid}`).subscribe(set);
-// 	} else {
-// 		set(null);
-// 	}
-// });
+const voteDataListStore = () => {
+	return collectionStore<VoteData>(db, `votes`);
+};
+
+export const voteDataList = voteDataListStore();
 
 interface VoteStore {
 	isClosed: boolean;
-	voted: boolean;
 }
 
-const voteStore = () => {
-	const { update, subscribe } = writable<VoteStore>({
-		isClosed: true,
-		voted: false
+export const voteStore = () => {
+	const { subscribe, set } = writable<VoteStore>({
+		isClosed: true
 	});
 
 	const setVoteClosed = (isClosed: boolean) => {
-		update((store) => ({
-			...store,
-			isClosed
-		}));
-	};
-
-	const setVoted = (voted: boolean) => {
-		update((store) => ({
-			...store,
-			voted
-		}));
+		// update((store) => ({
+		// 	isClosed: isClosed
+		// }));
+		set({ isClosed });
 	};
 
 	return {
 		subscribe,
-		setVoteClosed,
-		setVoted
+		setVoteClosed
 	};
 };
 
 export const vote = voteStore();
+
+export function collectionStore<T>(
+	firestore: Firestore,
+	ref: string | Query | CollectionReference,
+	startWith: T[] | undefined = undefined
+) {
+	let unsubscribe: () => void;
+
+	// Fallback for SSR
+	if (!firestore || !globalThis.window) {
+		console.warn("Firestore is not initialized or not in browser");
+		const { subscribe } = writable(startWith);
+		return {
+			subscribe,
+			ref: null
+		};
+	}
+
+	const colRef = typeof ref === "string" ? collection(firestore, ref) : ref;
+
+	const { subscribe } = writable<T[] | undefined>(startWith, (set) => {
+		unsubscribe = onSnapshot(colRef, (snapshot) => {
+			const data = snapshot.docs.map((s) => {
+				return { id: s.id, ref: s.ref, ...s.data() } as T;
+			});
+			set(data);
+		});
+		return () => unsubscribe();
+	});
+
+	return {
+		subscribe,
+		ref: colRef
+	};
+}

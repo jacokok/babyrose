@@ -19,12 +19,13 @@
 		return { days, hours, minutes, seconds };
 	};
 
-	setInterval(() => {
+	const interval = setInterval(() => {
 		if (voteOpenSeconds > 0) {
 			voteOpenSeconds--;
-			vote.setVoteClosed(false);
+			if ($vote.isClosed !== false) vote.setVoteClosed(false);
 		} else {
 			vote.setVoteClosed(true);
+			clearInterval(interval);
 		}
 	}, 1000);
 
@@ -32,7 +33,7 @@
 </script>
 
 {#if !$vote.isClosed}
-	<Card.Root class="max-w-md flex flex-col h-fit w-full">
+	<Card.Root class="max-w-lg flex flex-col h-fit w-full">
 		<Card.Header>
 			<Card.Title>Don't miss out</Card.Title>
 			<Card.Description>Voting closes in</Card.Description>

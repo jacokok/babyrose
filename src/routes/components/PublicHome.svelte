@@ -7,7 +7,7 @@
 	import { Title } from "$lib/components/title";
 </script>
 
-<Card.Root class="max-w-md flex flex-col h-fit w-full">
+<Card.Root class="max-w-lg flex flex-col h-fit w-full">
 	<Card.Header>
 		<Card.Title>
 			<div class="m-8">
