@@ -21,14 +21,16 @@
 		return { days, hours, minutes, seconds };
 	};
 
-	const interval = setInterval(() => {
-		if (voteOpenSeconds > 0) {
-			voteOpenSeconds--;
-		} else {
-			vote.setVoteClosed(true);
-			clearInterval(interval);
-		}
-	}, 1000);
+	if (voteOpenSeconds > 0) {
+		const interval = setInterval(() => {
+			if (voteOpenSeconds > 0) {
+				voteOpenSeconds--;
+			} else {
+				vote.setVoteClosed(true);
+				clearInterval(interval);
+			}
+		}, 1000);
+	}
 
 	$: timer = getTimerValues(voteOpenSeconds);
 </script>
