@@ -1,5 +1,6 @@
 <script>
 	import * as Card from "$lib/components/ui/card";
+	import { base } from "$app/paths";
 </script>
 
 <Card.Root class="max-w-lg flex flex-col h-fit w-full">
@@ -10,24 +11,24 @@
 	<Card.Content>
 		<div class="flex gap-6">
 			<img
-				src="/images/boy1.png"
+				src="{base}/images/boy1.png"
 				alt="boy1"
 				class="w-full h-full border-4 border-blue-400 rounded-full"
 			/>
 			<img
-				src="/images/boy2.png"
+				src="{base}/images/boy2.png"
 				alt="boy2"
 				class="w-full h-full border-4 border-blue-400 rounded-full"
 			/>
 		</div>
 		<div class="flex gap-6 mt-6">
 			<img
-				src="/images/girl1.png"
+				src="{base}/images/girl1.png"
 				alt="girl1"
 				class="w-full h-full border-4 border-pink-400 rounded-full"
 			/>
 			<img
-				src="/images/girl2.png"
+				src="{base}/images/girl2.png"
 				alt="girl2"
 				class="w-full h-full border-4 border-pink-400 rounded-full"
 			/>
