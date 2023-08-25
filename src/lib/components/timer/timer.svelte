@@ -8,31 +8,37 @@
 	let now = new Date();
 	$: voteOpenSeconds = Math.floor((voteCloseDate.getTime() - now.getTime()) / 1000);
 
-	const getTimerValues = (seconds: number) => {
-		if ($vote.isClosed !== false) vote.setVoteClosed(false);
+	let timer = { days: 0, hours: 0, minutes: 0, seconds: 0 };
+	let clear: NodeJS.Timeout;
 
-		let minutes = Math.floor(seconds / 60);
+	const getTimerValues = () => {
+		if (voteOpenSeconds > 0) {
+			if ($vote.isClosed) vote.setVoteClosed(false);
+			voteOpenSeconds--;
+		}
+
+		let minutes = Math.floor(voteOpenSeconds / 60);
 		let hours = Math.floor(minutes / 60);
 		let days = Math.floor(hours / 24);
 
 		hours = hours - days * 24;
 		minutes = minutes - days * 24 * 60 - hours * 60;
-		seconds = seconds - days * 24 * 60 * 60 - hours * 60 * 60 - minutes * 60;
-		return { days, hours, minutes, seconds };
+		let seconds = voteOpenSeconds - days * 24 * 60 * 60 - hours * 60 * 60 - minutes * 60;
+		timer = { days, hours, minutes, seconds };
+		return timer;
 	};
 
-	if (voteOpenSeconds > 0) {
-		const interval = setInterval(() => {
-			if (voteOpenSeconds > 0) {
-				voteOpenSeconds--;
-			} else {
-				vote.setVoteClosed(true);
-				clearInterval(interval);
-			}
-		}, 1000);
+	$: {
+		if (voteOpenSeconds > 0) {
+			clearInterval(clear);
+			clear = setInterval(getTimerValues, 1000);
+		} else {
+			clearInterval(clear);
+			vote.setVoteClosed(true);
+		}
 	}
 
-	$: timer = getTimerValues(voteOpenSeconds);
+	// $: timer = getTimerValues(voteOpenSeconds);
 </script>
 
 {#if !$vote.isClosed}
