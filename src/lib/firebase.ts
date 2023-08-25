@@ -11,9 +11,9 @@ import {
 	getFirestore,
 	doc,
 	onSnapshot,
-	Timestamp,
-	Query,
-	Firestore,
+	type Timestamp,
+	type Query,
+	type Firestore,
 	collection
 } from "firebase/firestore";
 import type { CollectionReference } from "firebase/firestore";
