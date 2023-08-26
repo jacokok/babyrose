@@ -101,6 +101,8 @@ export const configData = configDataStore();
 
 export interface VoteData {
 	gender: string;
+	name: string;
+	email: string;
 }
 
 export const voteData: Readable<VoteData | null> = derived(user, ($user, set) => {

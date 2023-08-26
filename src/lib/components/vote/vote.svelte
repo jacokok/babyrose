@@ -35,7 +35,7 @@
 		class:border-blue-300={voteResult === "boy"}
 		class:bg-blue-100={voteResult === "boy"}
 		class:dark:bg-blue-400={voteResult === "boy"}
-		use:confettiAction={{ particleCount: $vote.isClosed ? 0 : 100 }}
+		use:confettiAction={{ particleCount: $vote.isClosed ? 0 : 100, type: "simple" }}
 	>
 		<Label
 			for="boy"
@@ -51,7 +51,7 @@
 		class:border-pink-400={voteResult === "girl"}
 		class:bg-pink-100={voteResult === "girl"}
 		class:dark:bg-pink-300={voteResult === "girl"}
-		use:confettiAction={{ particleCount: $vote.isClosed ? 0 : 100 }}
+		use:confettiAction={{ particleCount: $vote.isClosed ? 0 : 100, type: "simple" }}
 	>
 		<Label
 			for="girl"

@@ -33,7 +33,7 @@
 					<DropdownMenu.Content class="w-56">
 						<DropdownMenu.Label>{$user?.displayName}</DropdownMenu.Label>
 						<DropdownMenu.Separator />
-						<DropdownMenu.Item class="cursor-pointer" on:m-click={signOut}>
+						<DropdownMenu.Item class="cursor-pointer" on:click={signOut}>
 							<LogOut class="mr-2 h-4 w-4" />
 							<span>Sign Out</span>
 						</DropdownMenu.Item>
