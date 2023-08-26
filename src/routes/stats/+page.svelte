@@ -3,9 +3,11 @@
 	import * as Table from "$lib/components/ui/table";
 	import { Header } from "$lib/components/header";
 	import Gender from "./Gender.svelte";
+	import Skeleton from "$lib/components/ui/skeleton/skeleton.svelte";
 </script>
 
 <Header />
+
 <Table.Root class="mt-6">
 	<Table.Caption class="caption-top">What everyone picked</Table.Caption>
 	<Table.Header>
@@ -16,6 +18,23 @@
 		</Table.Row>
 	</Table.Header>
 	<Table.Body>
+		{#if ($voteDataList ?? []).length <= 0}
+			<Table.Row>
+				<Table.Cell><Skeleton class="h-[20px] rounded-full w-full" /></Table.Cell>
+				<Table.Cell><Skeleton class="h-[20px] rounded-full w-full" /></Table.Cell>
+				<Table.Cell><Skeleton class="h-[20px] rounded-full w-full" /></Table.Cell>
+			</Table.Row>
+			<Table.Row>
+				<Table.Cell><Skeleton class="h-[20px] rounded-full w-full" /></Table.Cell>
+				<Table.Cell><Skeleton class="h-[20px] rounded-full w-full" /></Table.Cell>
+				<Table.Cell><Skeleton class="h-[20px] rounded-full w-full" /></Table.Cell>
+			</Table.Row>
+			<Table.Row>
+				<Table.Cell><Skeleton class="h-[20px] rounded-full w-full" /></Table.Cell>
+				<Table.Cell><Skeleton class="h-[20px] rounded-full w-full" /></Table.Cell>
+				<Table.Cell><Skeleton class="h-[20px] rounded-full w-full" /></Table.Cell>
+			</Table.Row>
+		{/if}
 		{#each $voteDataList ?? [] as row}
 			<Table.Row>
 				<Table.Cell>{row.name}</Table.Cell>
