@@ -9,19 +9,19 @@
 		<Card.Description>What Ronel and Bryden looked like</Card.Description>
 	</Card.Header>
 	<Card.Content>
-		<div class="flex gap-6 w-full justify-center">
+		<div class="flex gap-6 w-full justify-evenly">
 			<div>
 				<img
-					src="{base}/images/boy1.png"
+					src="{base}/images/bryden.png"
 					alt="Bryden"
-					class="border-4 border-blue-400 rounded-full"
+					class="border-4 border-blue-400 rounded-full max-h-40"
 				/>
 			</div>
 			<div>
 				<img
 					src="{base}/images/ronel.png"
 					alt="Ronel"
-					class="border-4 border-pink-400 rounded-full"
+					class="border-4 border-pink-400 rounded-full max-h-40"
 				/>
 			</div>
 		</div>
