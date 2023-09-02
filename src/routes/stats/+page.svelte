@@ -4,12 +4,17 @@
 	import { Header } from "$lib/components/header";
 	import Gender from "./Gender.svelte";
 	import Skeleton from "$lib/components/ui/skeleton/skeleton.svelte";
+	import Export from "./Export.svelte";
 </script>
 
 <Header />
 
 <Table.Root class="mt-6">
-	<Table.Caption class="caption-top">What everyone picked</Table.Caption>
+	<Table.Caption class="caption-top"
+		>What everyone picked <div class="float-right mr-2">
+			<Export data={$voteDataList ?? []} />
+		</div></Table.Caption
+	>
 	<Table.Header>
 		<Table.Row>
 			<Table.Head>Name</Table.Head>
